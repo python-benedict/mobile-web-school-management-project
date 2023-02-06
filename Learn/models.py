@@ -67,3 +67,21 @@ class Tutorial(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.EmbedVideoField(blank=True, Null=True)
+    
+
+class Notes(models.Model):
+    title = models.CharField(max_length=255, default='No Title')
+    file = models.FieldFile(upload_to='', null=True, blank=True)
+    cover = models.ImageField(upload_to='', null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return self.title
+    
+    
+    def delete(self, *args, **kwargs):
+        self.file.delete()
+        self.cover.delete()
+        super().delete(*args, **kwargs)
