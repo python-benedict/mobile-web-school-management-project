@@ -132,3 +132,10 @@ class Learner(models.Model):
 class Instructor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     interest = models.ManyToManyField(Course, related_name="more_locations")
+    
+    
+class TakenQuiz(models.Model):
+    learner = models.ForeignKey(Learner, on_delete=models.CASCADE, related_name='taken_quizzes')
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='taken_quizzes')
+    score = models.FloatField()
+    date = models.DateTimeField(auto_now_add=True)
