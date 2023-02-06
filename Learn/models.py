@@ -4,7 +4,9 @@ from django.utils.html import escape, mark_safe
 from django.contrib.auth import get_user_model
 from embed_video.fields import EmbedVideoField
 
+
 # Create your models here.
+
 
 class User(AbstractUser):
     is_learner = models.BooleanField(default=False)
@@ -32,11 +34,27 @@ class Profile(models.Model):
     level =models.CharField(max_length=50)
     profession = models.CharField(max_length=50, default='Student')
 
+
 class Announcement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     posted_at = models.DateTimeField(auto_now=True)
     
+    
     def __str__(self):
         return self.content
     
+
+class Course(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=50, default='#007bff')
+    
+    def __str__(self):
+        return self.name
+    
+    def get_html_badge(self):
+        name = escape(self.name)
+        color = escape(self.color)
+        html = '<span class ="badge badge-primary" style="background-color:'
+        return mark_safe(html)
+        
