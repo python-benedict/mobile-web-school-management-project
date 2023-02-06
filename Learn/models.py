@@ -129,3 +129,6 @@ class Learner(models.Model):
         return self.user.username
     
     
+class Instructor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    interest = models.ManyToManyField(Course, related_name="more_locations")
