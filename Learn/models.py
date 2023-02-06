@@ -103,4 +103,16 @@ class Question(models.Model):
     def __str__(self):
         return self.text
     
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='questions')
+    text = models.CharField('Answer', max_length=255)
+    is_correct = models.BooleanField('Correct Answer', default=False)
+    
+    def __str__(self):
+        return self.text
+    
+
+
+    
     
