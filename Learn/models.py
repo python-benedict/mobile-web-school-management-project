@@ -58,3 +58,12 @@ class Course(models.Model):
         html = '<span class ="badge badge-primary" style="background-color:'
         return mark_safe(html)
         
+
+class Tutorial(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    thumb = models.ImageField(upload_to='',null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default='No Title')
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    video = models.EmbedVideoField(blank=True, Null=True)
