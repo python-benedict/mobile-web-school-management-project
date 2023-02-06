@@ -85,3 +85,15 @@ class Notes(models.Model):
         self.file.delete()
         self.cover.delete()
         super().delete(*args, **kwargs)
+        
+
+class Quiz(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owners')
+    name = models.CharField(max_length=100)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='courses')
+    
+    def __str__(self):
+        return self.name
+    
+    
+
