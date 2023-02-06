@@ -96,4 +96,11 @@ class Quiz(models.Model):
         return self.name
     
     
-
+class Question(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='quizes')
+    text = models.CharField('Question', max_length=255)
+    
+    def __str__(self):
+        return self.text
+    
+    
